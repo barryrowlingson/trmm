@@ -98,15 +98,15 @@ get_layer <- function(L, layer){
         )
     close(f)
     z[z==L$flag_value]=NA
-    r = raster::raster(matrix(z,ncol=L$number_of_latitude_bins,
-                  nrow=L$number_of_longitude_bins),
+    r = raster::raster(t(matrix(z,ncol=L$number_of_latitude_bins,
+                  nrow=L$number_of_longitude_bins)),
            xmn=compute_edge(L$west_boundary),
            xmx=compute_edge(L$east_boundary),
            ymn=compute_edge(L$south_boundary),
            ymx=compute_edge(L$north_boundary)
            )
     
-    r = r/L$variable_scale[w]
+    r = raster::rotate(r/L$variable_scale[w])
     raster::projection(r)=sp::CRS("+init=epsg:4326")
     r
 }
