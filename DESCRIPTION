@@ -5,5 +5,5 @@ Authors@R: c(person("Barry", "Rowlingson", , "b.rowlingson@gmail.com", role = c(
 Description: Read data from NASA TRMM data files into raster structures.
 Depends: R (>= 3.1.1), 
 Imports: sp, raster, stringr, lubridate
-License: MIT
+License: MIT + file LICENSE
 LazyData: true
