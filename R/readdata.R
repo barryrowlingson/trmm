@@ -30,7 +30,7 @@ compute_edge <- function(s){
 ##' @author Barry Rowlingson
 ##' @export
 get_header <- function(f){
-    t = readChar(f,nchar=2880)
+    t = readChar(f,nchars=2880)
     t = stringr::str_trim(t)
     t = stringr::str_split(t[[1]]," ")
     t = stringr::str_split(t[[1]],"=")
@@ -58,7 +58,7 @@ print.trmmheader <- function(x,...){
     cat("\n")
     cat("Path:",x$path,"\n")
     cat("Size:",x$number_of_longitude_bins,"x",x$number_of_latitude_bins,"\n")
-    cat("Variable names:",L$variable_name,"\n")
+    cat("Variable names:",x$variable_name,"\n")
     cat("\n")
     cat("See names() for all header fields\n")
 }
@@ -134,7 +134,7 @@ get_brick <- function(L){
 readconverted <- function(f,var=1){
     ## this reads and converts a table of i,j,p1,p2,p3...
     ## as output by the fortran code. Only useful for testing.
-    m = read.table(f,head=TRUE)
+    m = read.table(f,header=TRUE)
     col=var+2 # skip i,j
     message("reading ",names(m)[col])
     ni = max(m$i)
@@ -145,7 +145,7 @@ readconverted <- function(f,var=1){
     xmn=0
     pm = matrix(m[,col], ni,nj)
     r = raster::raster(pm, xmn=xmn, xmx=xmx, ymn=ymn, ymx=ymx)
-    projection(r)=CRS("+init=epsg:4326")
+    raster::projection(r)=sp::CRS("+init=epsg:4326")
     r[r < -90000] <- NA
     r
 }
