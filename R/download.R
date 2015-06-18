@@ -4,7 +4,7 @@
 ##'
 ##' @param outdir the directory in which to save files
 ##' @param start start date e.g. ymd('20121231')
-##' @param end end dat date e.g. ymd('20130101')
+##' @param end end date e.g. ymd('20130101')
 ##' @param by argument passed to seq(start,end,by), the sequence of days to download data from, default is all days between start and end
 ##' @param hours the hours in the day for which to download data, a character string. Default is all hours.
 ##' @param product the product to download, default is '3B42RT', but other options are '3B41RT' and '3B40RT'
