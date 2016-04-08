@@ -13,7 +13,7 @@
 ##' 
 ##' section{Dependencies}{
 ##' The package \code{trmm} depends upon some other important contributions to CRAN in order to operate; their uses here are indicated:\cr\cr
-##'     sp, raster, stringr, lubridate, ncdf.
+##'     sp, raster, stringr, lubridate, ncdf4.
 ##' }
 ##' 
 ##' section{Citation}{
@@ -37,15 +37,14 @@
 ## @import raster
 ## @import stringr
 ## @import lubridate
-## @import ncdf
+## @import ncdf4
 
 # instead import functions individually
 ##' @importFrom sp bbox proj4string<- proj4string SpatialPixelsDataFrame SpatialGridDataFrame Polygon Polygons SpatialPolygons coordinates CRS geometry GridTopology over proj4string SpatialGrid SpatialPixels SpatialPoints SpatialPolygonsDataFrame split spTransform 
 ##' @importFrom raster raster crop
 ##' @importFrom stringr str_split str_match str_trim
 ##' @importFrom lubridate ymd year month week day
-##' @importFrom ncdf open.ncdf close.ncdf sync.ncdf get.var.ncdf dim.def.ncdf var.def.ncdf create.ncdf put.var.ncdf
-
+##' @importFrom ncdf4 nc_open nc_close nc_sync ncvar_get ncdim_def ncvar_def nc_create ncvar_put
 
 
 ### @importFrom raster raster crop

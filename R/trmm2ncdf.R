@@ -90,26 +90,26 @@ trmm2ncdf <- function(directory,outfile=tempfile(fileext=".nc"),start=ymd("20060
 
         if(!initialised){
             initialised <<- TRUE
-            tt <- dim.def.ncdf( "T", "time coordinates", 1:N)
+            tt <- ncdim_def( "T", "time coordinates", 1:N)
             dd <<- dim(out)
-            xx <- dim.def.ncdf( "X", "x coordinates", 1:dd[1])
-            yy <- dim.def.ncdf( "Y", "y coordinates", 1:dd[2])
-            vv <- dim.def.ncdf( "Type", "Variable type", 1:dd[3])
-            sout <- var.def.ncdf("TRMM","none", list(tt,xx,yy,vv), missval=1.e30,prec="double")
-            ncdata <- create.ncdf(outfile,sout)
-            close.ncdf(ncdata)
-            ncdata <<- open.ncdf(outfile,write=TRUE)
+            xx <- ncdim_def( "X", "x coordinates", 1:dd[1])
+            yy <- ncdim_def( "Y", "y coordinates", 1:dd[2])
+            vv <- ncdim_def( "Type", "Variable type", 1:dd[3])
+            sout <- ncvar_def("TRMM","none", list(tt,xx,yy,vv), missval=1.e30,prec="double")
+            ncdata <- nc_create(outfile,sout)
+            nc_close(ncdata)
+            ncdata <<- nc_open(outfile,write=TRUE)
             firstslice <<- out # all coordinate and projection details available from this slice
         }
 
         if(!inherits(out,"try-error")){
-            put.var.ncdf(ncdata,ncdata$var[[1]],raster::as.array(out),start=c(i,1,1,1),count=c(1,dd[1],dd[2],dd[3]))
+            ncvar_put(ncdata,ncdata$var[[1]],raster::as.array(out),start=c(i,1,1,1),count=c(1,dd[1],dd[2],dd[3]))
         }
     }
 
     sapply(1:N,getFun)
-    sync.ncdf(ncdata)
-    close.ncdf(ncdata)
+    nc_sync(ncdata)
+    nc_close(ncdata)
 
     ans <- list()
     ans$ymdh <- ymdh
@@ -154,9 +154,9 @@ trmm2ncdf <- function(directory,outfile=tempfile(fileext=".nc"),start=ymd("20060
 ##' @export
 
 dim_ncdf <- function(dat){
-    ncdata <- open.ncdf(dat$outfile)
+    ncdata <- nc_open(dat$outfile)
     datadim <- ncdata$var$TRMM$varsize
-    close.ncdf(ncdata)
+    nc_close(ncdata)
     return(datadim)
 }
 
@@ -196,7 +196,7 @@ dim_ncdf <- function(dat){
 
 extract_ncdf <- function(dat,start=NULL,count=NULL){
 
-    ncdata <- open.ncdf(dat$outfile)
+    ncdata <- nc_open(dat$outfile)
     datadim <- ncdata$var$TRMM$varsize
     
     if(is.null(start)){
@@ -207,8 +207,8 @@ extract_ncdf <- function(dat,start=NULL,count=NULL){
         count <- c(1,datadim[2],datadim[3],1)           
     }
     
-    x <- get.var.ncdf(nc=ncdata, varid=ncdata$var[[1]], start=start, count=count)
-    close.ncdf(ncdata)
+    x <- ncvar_get(nc=ncdata, varid=ncdata$var[[1]], start=start, count=count)
+    nc_close(ncdata)
 
     return(x)
 }
