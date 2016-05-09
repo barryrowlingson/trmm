@@ -2,4 +2,4 @@
 language: r
 sudo: true
 cache: packages
-apt_packages: libnetcdf-dev
+apt_packages: netcdf-bin libnetcdf-dev
