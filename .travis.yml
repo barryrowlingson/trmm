@@ -1,4 +1,5 @@
 # travis testing
 language: r
-sudo: false
+sudo: true
 cache: packages
+apt_packages: libnetcdf-dev
