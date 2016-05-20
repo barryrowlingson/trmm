@@ -36,3 +36,5 @@ So here's an R package. Here's how it works.
 
 
 [![Travis-CI Build Status](https://travis-ci.org/barryrowlingson/trmm.svg?branch=master)](https://travis-ci.org/barryrowlingson/trmm)
+
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/barryrowlingson/trmm?branch=master&svg=true)](https://ci.appveyor.com/project/barryrowlingson/trmm)

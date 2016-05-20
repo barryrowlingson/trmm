@@ -1,2 +1,3 @@
 ^trmm\.Rproj$
 ^\.travis\.yml$
+^appveyor\.yml$
