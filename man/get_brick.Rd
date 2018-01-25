@@ -21,4 +21,3 @@ reads all layers into a brick, with names.
 \author{
 Barry Rowlingson
 }
-

@@ -41,4 +41,3 @@ an object of class trmmNCDF, for which there is a method extract_ncdf for extrac
 \description{
 A function to convert TRMM rainfall data binaries into a NetCDF file
 }
-

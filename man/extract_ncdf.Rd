@@ -27,4 +27,3 @@ A function to extract data from the NetCDF file saved by trmm2ncdf
 \seealso{
 \link{trmm2ncdf}
 }
-

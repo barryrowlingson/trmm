@@ -24,4 +24,3 @@ layer into a raster object
 \author{
 Barry Rowlingson
 }
-

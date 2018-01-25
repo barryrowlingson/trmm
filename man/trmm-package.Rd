@@ -2,8 +2,8 @@
 % Please edit documentation in R/trmm.R
 \docType{package}
 \name{trmm-package}
-\alias{trmm}
 \alias{trmm-package}
+\alias{trmm}
 \title{trmm}
 \format{An object of class \code{logical} of length 1.}
 \usage{
@@ -40,4 +40,3 @@ Barry Rowlingson, Department of Medicine, Lancaster University,
  Benjamin Taylor, Department of Medicine, Lancaster University
 }
 \keyword{package}
-

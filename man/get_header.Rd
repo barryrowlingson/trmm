@@ -22,4 +22,3 @@ then read the data into a raster or raster brick.
 \author{
 Barry Rowlingson
 }
-

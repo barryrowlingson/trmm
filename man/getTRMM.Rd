@@ -32,4 +32,3 @@ Downloads the files requested into the directory specified.
 \description{
 A function to download 3-hourly TRMM data into a directory of your choice.
 }
-

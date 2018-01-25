@@ -83,13 +83,13 @@ getTRMM <- function(outdir,start=lubridate::ymd("20121231"),end=lubridate::ymd("
                 next
             }
             else{
-                try(download.file(inpath,outpath))
+                try(utils::download.file(inpath,outpath))
                 if(file.exists(outpath) & file.size(outpath)>0){
                     obtained[i] <- 1
                 }
                 else{
                     cat(inpath,"failed, trying",altinpath,"instead.\n")
-                    try(download.file(altinpath,altoutpath))
+                    try(utils::download.file(altinpath,altoutpath))
                     if(file.exists(altoutpath) & file.size(altoutpath)>0){
                         obtained[i] <- 1
                     }   

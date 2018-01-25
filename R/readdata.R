@@ -134,7 +134,7 @@ get_brick <- function(L){
 readconverted <- function(f,var=1){
     ## this reads and converts a table of i,j,p1,p2,p3...
     ## as output by the fortran code. Only useful for testing.
-    m = read.table(f,header=TRUE)
+    m = utils::read.table(f,header=TRUE)
     col=var+2 # skip i,j
     message("reading ",names(m)[col])
     ni = max(m$i)

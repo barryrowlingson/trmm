@@ -18,4 +18,3 @@ A function to return the dimension of the NetCDF file saved by trmm2ncdf
 \seealso{
 \link{trmm2ncdf}
 }
-
