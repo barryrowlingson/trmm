@@ -50,6 +50,10 @@ get_header <- function(f){
     L$header_byte_length = as.numeric(L$header_byte_length)
     L$path = f
     class(L)="trmmheader"
+    m = negwarning(L)
+    if(m[[1]]){
+        warning(m[[2]])
+    }
     L
 }
 
@@ -61,6 +65,11 @@ print.trmmheader <- function(x,...){
     cat("Variable names:",x$variable_name,"\n")
     cat("\n")
     cat("See names() for all header fields\n")
+    m = negwarning(x)
+    if(m[[1]]){
+        message(m[[2]])
+    }
+
 }
     
 ##' get a layer from a trmm using the header
@@ -111,6 +120,17 @@ get_layer <- function(L, layer){
     r
 }
 
+
+negwarning <- function(H){
+    if(H$algorithm_ID == "3B40RT"){
+        return(list(TRUE, "Negative precipitation values for ambiguous pixels - fix with fix_negatives"))
+    }
+    if(H$algorithm_ID == "3B42RT"){
+        return(list(TRUE,"Negative precipitation values for uncertain measurements at high latitudes - use fix_high_lats to correct"))
+    }
+    return(list(FALSE, "No warnings"))
+}
+
 ##' get all layers into a brick
 ##'
 ##' reads all layers into a brick, with names.
@@ -149,3 +169,39 @@ readconverted <- function(f,var=1){
     r[r < -90000] <- NA
     r
 }
+
+##' Restore Data Outside 50N-50S
+##'
+##' In 3B42 data, values further north or south than 50 degrees
+##' are recoded such that they become negative. This function restores
+##' those values to positive values. Note that these values are set
+##' negative to indicate uncertainty in their values, since the data
+##' is really only intended for tropical rainfall.
+##' @title Restore Data Outside 50N to 50S
+##' @param r a raster, typically precipitation
+##' @param lat latitude for the cutoff
+##' @return a raster with polar data converted
+##' @author Barry Rowlingson
+fix_high_lats <- function(r, lat=50){
+    lats = yFromRow(r, 1:nrow(r))
+    fix_rows = (1:nrow(r))[(lats > lat) | (lats < -lat) ]
+    fix_values = -r[cellFromRow(r,fix_rows)] - 0.01
+    r[cellFromRow(r,fix_rows)] = fix_values
+    r
+}
+##' Fix Negative Data
+##'
+##' In 3B40 data, negative values indicate ambiguous data due to
+##' ambiguous pixels. This function converts the values to their positive
+##' values. 
+##' @title Fix Negative Data
+##' @param r a raster, typically precipitation
+##' @return a raster with positive values
+##' @author Barry Rowlingson
+fix_negatives <- function(r){
+    if(any(r[]<0, na.rm=TRUE)){
+        r[r<0] = -r[r<0] - 0.01
+    }
+    r
+}
+
